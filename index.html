@@ -1,1 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <!-- WEBSITE TITLE: Zelportfolio -->
+  <title>Zelportfolio | Hazzel Pratama - Software Engineering & Web Developer</title>
+  <meta name="description" content="Zelportfolio - The official interactive portfolio of Hazzel Pratama. Software Engineering student at SMKN 12 Jakarta, Web Developer, PHP, MySQL, & UI/UX Designer. Featuring Vicetone - Nevada Instrumental background soundscape.">
+  <meta name="keywords" content="Zelportfolio, Hazzel Pratama, Software Engineering, RPL, SMKN 12 Jakarta, Web Developer, Frontend, Backend, UI/UX, Figma, Vicetone Nevada Instrumental">
+  <meta name="author" content="Hazzel Pratama">
+  
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:title" content="Zelportfolio | Hazzel Pratama Portfolio">
+  <meta property="og:description" content="Official Software Engineering & UI/UX Portfolio of Hazzel Pratama - SMKN 12 Jakarta">
+  <meta property="og:type" content="website">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-violet">
+
+  <!-- Native Audio Element: Vicetone - Nevada Instrumental -->
+  <audio id="bgm-audio" src="nevada.wav" loop preload="auto"></audio>
+
+  <!-- Interactive Custom Cursor (Desktop Only) -->
+  <div class="custom-cursor-dot" id="cursor-dot"></div>
+  <div class="custom-cursor-glow" id="cursor-glow"></div>
+
+  <!-- Background Interactive Canvas Particle -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Ambient Glow Blobs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- BRAND LOGO: Zelportfolio -->
+      <a href="#home" class="nav-brand">
+        <span class="brand-code">&lt;</span>
+        <span class="brand-name">Zel</span>
+        <span class="brand-accent">portfolio</span>
+        <span class="brand-code">/&gt;</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#terminal" class="nav-link">Terminal</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Accent Switcher Widget -->
+        <div class="theme-switcher" title="Change Theme Accent">
+          <button class="theme-dot dot-violet active" onclick="setThemeAccent('violet')" aria-label="Violet Theme"></button>
+          <button class="theme-dot dot-cyan" onclick="setThemeAccent('cyan')" aria-label="Cyan Theme"></button>
+          <button class="theme-dot dot-emerald" onclick="setThemeAccent('emerald')" aria-label="Emerald Theme"></button>
+          <button class="theme-dot dot-magenta" onclick="setThemeAccent('magenta')" aria-label="Magenta Theme"></button>
+        </div>
+
+        <!-- Music / Sound Player Quick Button -->
+        <button class="sound-toggle-btn" id="sound-btn" onclick="togglePlayMusic()" title="Play / Pause Vicetone - Nevada (Instrumental)" aria-label="Toggle Nevada BGM">
+          <i data-lucide="volume-x" id="sound-icon"></i>
+          <span class="sound-wave"></span>
+        </button>
+
+        <a href="https://wa.me/6285282787130?text=Hello%20Hazzel,%20I%20viewed%20Zelportfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm nav-cta">
+          <i data-lucide="message-circle" class="btn-icon"></i>
+          <span>Get In Touch</span>
+        </a>
+        
+        <!-- Mobile Hamburger Button -->
+        <button class="hamburger-btn" id="menu-toggle" aria-label="Open Navigation Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+      <span class="drawer-title">Zelportfolio Menu</span>
+      <button class="drawer-close" id="drawer-close" aria-label="Close Menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="drawer-body">
+      <a href="#home" class="mobile-nav-link"><i data-lucide="home"></i> Home</a>
+      <a href="#about" class="mobile-nav-link"><i data-lucide="user"></i> About Me</a>
+      <a href="#skills" class="mobile-nav-link"><i data-lucide="code-2"></i> Skills & Stack</a>
+      <a href="#terminal" class="mobile-nav-link"><i data-lucide="terminal"></i> Live Terminal</a>
+      <a href="#experience" class="mobile-nav-link"><i data-lucide="briefcase"></i> Experience & Education</a>
+      <a href="#projects" class="mobile-nav-link"><i data-lucide="layout-grid"></i> Featured Projects</a>
+      <a href="#contact" class="mobile-nav-link"><i data-lucide="phone"></i> Contact</a>
+
+      <div class="mobile-theme-row">
+        <span>Theme Accent:</span>
+        <div class="theme-switcher">
+          <button class="theme-dot dot-violet active" onclick="setThemeAccent('violet')"></button>
+          <button class="theme-dot dot-cyan" onclick="setThemeAccent('cyan')"></button>
+          <button class="theme-dot dot-emerald" onclick="setThemeAccent('emerald')"></button>
+          <button class="theme-dot dot-magenta" onclick="setThemeAccent('magenta')"></button>
+        </div>
+      </div>
+
+      <!-- Mobile Music Player Switcher -->
+      <div class="mobile-music-box">
+        <div class="music-info-mini">
+          <span class="music-title-mini" id="m-drawer-music-title">🔥 Vicetone - Nevada (Inst.)</span>
+          <span class="music-status-mini" id="m-drawer-music-status">Tap to Play Nevada</span>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="togglePlayMusic()">
+          <i data-lucide="music"></i> <span id="m-drawer-play-text">Play Nevada</span>
+        </button>
+      </div>
+
+      <div class="drawer-footer">
+        <a href="https://wa.me/6285282787130" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+          <i data-lucide="send"></i> Chat via WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home">
+      <div class="container hero-grid">
+        <!-- Hero Text -->
+        <div class="hero-content">
+          <div class="badge-status fade-in">
+            <span class="status-dot"></span>
+            <span>Available for Internships, Projects & Collaborations</span>
+          </div>
+
+          <h1 class="hero-title fade-in">
+            Hello! I'm <br>
+            <span class="gradient-text glow-text">Hazzel Pratama</span>
+          </h1>
+
+          <div class="hero-subtitle-wrapper fade-in">
+            <span class="static-prefix">Specializing in: </span>
+            <span class="dynamic-typing" id="typed-text"></span>
+            <span class="typing-cursor">|</span>
+          </div>
+
+          <p class="hero-bio fade-in">
+            A passionate <strong>Software Engineering</strong> student at <strong>SMKN 12 Jakarta</strong> focused on crafting high-performance, mobile-first websites and digital interfaces using HTML5, CSS3, PHP, MySQL, and Figma.
+          </p>
+
+          <div class="hero-buttons fade-in">
+            <a href="https://wa.me/6285282787130?text=Hello%20Hazzel,%20I'm%20impressed%20by%20Zelportfolio!" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">
+              <i data-lucide="send" class="btn-icon"></i>
+              <span>Let's Connect</span>
+            </a>
+            <a href="#projects" class="btn btn-glass">
+              <i data-lucide="sparkles" class="btn-icon"></i>
+              <span>Explore Projects</span>
+            </a>
+            <button class="btn btn-music-pill" onclick="togglePlayMusic()">
+              <i data-lucide="music" class="btn-icon"></i>
+              <span id="hero-music-label">Play Nevada 🎵</span>
+            </button>
+          </div>
+
+          <!-- Quick Micro Metrics with Animated Numbers -->
+          <div class="hero-metrics fade-in">
+            <div class="metric-card">
+              <span class="metric-num count-up" data-target="2027">2027</span>
+              <span class="metric-label">SMKN 12 RPL Cohort</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-card">
+              <span class="metric-num count-up" data-target="100" data-suffix="%">100%</span>
+              <span class="metric-label">Mobile Responsive</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-card">
+              <span class="metric-num count-up" data-target="15" data-suffix="+">15+</span>
+              <span class="metric-label">Projects & Modules</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Avatar Visual with Live Card Animations & Orbiting Badges -->
+        <div class="hero-visual fade-in">
+          <div class="avatar-perspective-wrap">
+            <!-- Animated Gradient Ring -->
+            <div class="rotating-ring"></div>
+            <div class="pulse-glow-sphere"></div>
+
+            <!-- Orbiting Particle Rings -->
+            <div class="orbit-circle orbit-1"></div>
+            <div class="orbit-circle orbit-2"></div>
+
+            <div class="avatar-card tilt-card" id="avatar-card">
+              <div class="avatar-frame">
+                <img src="profile.jpg" alt="Hazzel Pratama Official Portrait" class="profile-img" loading="eager">
+                <div class="avatar-overlay-gradient"></div>
+              </div>
+
+              <!-- HUD Cyber Lines -->
+              <div class="hud-corner top-left"></div>
+              <div class="hud-corner top-right"></div>
+              <div class="hud-corner bottom-left"></div>
+              <div class="hud-corner bottom-right"></div>
+
+              <!-- Floating Micro Badges -->
+              <div class="floating-badge badge-school" data-speed="1.2">
+                <div class="badge-icon-wrap"><i data-lucide="graduation-cap"></i></div>
+                <div class="badge-text">
+                  <span class="badge-title">SMKN 12 JAKARTA</span>
+                  <span class="badge-desc">Software Engineering</span>
+                </div>
+              </div>
+
+              <!-- Authentic Figma Multi-Color SVG Badge -->
+              <div class="floating-badge badge-tech" data-speed="0.8">
+                <div class="badge-icon-wrap figma-badge-wrap">
+                  <svg class="figma-svg-inline" viewBox="0 0 38 57" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5Z" fill="#1ABCFE"/>
+                    <path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/>
+                    <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262"/>
+                    <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E"/>
+                    <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF"/>
+                  </svg>
+                </div>
+                <div class="badge-text">
+                  <span class="badge-title">Web & UI/UX</span>
+                  <span class="badge-desc">Figma • HTML • PHP • SQL</span>
+                </div>
+              </div>
+
+              <div class="floating-badge badge-loc" data-speed="1.5">
+                <i data-lucide="map-pin"></i>
+                <span>North Jakarta, ID</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Scroll Indicator -->
+      <a href="#about" class="scroll-down-indicator" aria-label="Scroll Down">
+        <span class="mouse-icon">
+          <span class="wheel"></span>
+        </span>
+        <i data-lucide="chevron-down" class="chevron-bounce"></i>
+      </a>
+    </section>
+
+    <!-- FLOATING TECH TICKER BANNER -->
+    <section class="ticker-section">
+      <div class="ticker-wrapper">
+        <div class="ticker-track">
+          <span class="ticker-item"><i data-lucide="code"></i> HTML5 Semantic</span>
+          <span class="ticker-item"><i data-lucide="palette"></i> Modern CSS3 & Flex/Grid</span>
+          <span class="ticker-item"><i data-lucide="server"></i> PHP Programming</span>
+          <span class="ticker-item"><i data-lucide="database"></i> MySQL Relational Database</span>
+          <span class="ticker-item">
+            <!-- Authentic Figma SVG in Ticker -->
+            <svg class="figma-svg-inline" viewBox="0 0 38 57" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5Z" fill="#1ABCFE"/>
+              <path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/>
+              <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262"/>
+              <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E"/>
+              <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF"/>
+            </svg>
+            Figma UI/UX Design
+          </span>
+          <span class="ticker-item"><i data-lucide="smartphone"></i> Mobile-First Responsive</span>
+          <span class="ticker-item"><i data-lucide="cpu"></i> Software Engineering Fundamentals</span>
+          <!-- Seamless Loop Duplicate -->
+          <span class="ticker-item"><i data-lucide="code"></i> HTML5 Semantic</span>
+          <span class="ticker-item"><i data-lucide="palette"></i> Modern CSS3 & Flex/Grid</span>
+          <span class="ticker-item"><i data-lucide="server"></i> PHP Programming</span>
+          <span class="ticker-item"><i data-lucide="database"></i> MySQL Relational Database</span>
+          <span class="ticker-item">
+            <svg class="figma-svg-inline" viewBox="0 0 38 57" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5Z" fill="#1ABCFE"/>
+              <path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/>
+              <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262"/>
+              <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E"/>
+              <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF"/>
+            </svg>
+            Figma UI/UX Design
+          </span>
+          <span class="ticker-item"><i data-lucide="smartphone"></i> Mobile-First Responsive</span>
+          <span class="ticker-item"><i data-lucide="cpu"></i> Software Engineering Fundamentals</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section section-padding" id="about">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag"><i data-lucide="user"></i> Professional Profile</span>
+          <h2 class="section-title">About <span class="gradient-text">Hazzel Pratama</span></h2>
+          <p class="section-subtitle">Dedicated to mastering Software Engineering principles and building user-centric digital experiences that solve real-world problems.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Text Narrative Card with Spotlight Tracking -->
+          <div class="about-card glass-panel tilt-card reveal-on-scroll">
+            <div class="card-spotlight"></div>
+            <div class="card-glow"></div>
+            <div class="quote-icon"><i data-lucide="quote"></i></div>
+            
+            <h3 class="about-heading">
+              Motivated & Solution-Driven Digital Creator
+            </h3>
+
+            <p class="about-paragraph">
+              I am a motivated <strong>Software Engineering</strong> student at <strong>SMKN 12 Jakarta</strong> (Class of 2024 - 2027) with a deep enthusiasm for web development, programming logic, and relational database systems.
+            </p>
+            <p class="about-paragraph">
+              I enjoy learning new skills, solving algorithmic challenges, and developing creative digital solutions. Passionate about translating concepts into responsive, high-performing websites that look stunning and function seamlessly on Android smartphones, tablets, and desktop workstations.
+            </p>
+            <p class="about-paragraph highlight-box">
+              <i data-lucide="check-circle-2" class="text-accent"></i>
+              <span>I am also able to work independently with high discipline and collaborate effectively within a team environment.</span>
+            </p>
+
+            <div class="about-info-tags">
+              <div class="info-tag-item">
+                <i data-lucide="map-pin" class="tag-icon"></i>
+                <div>
+                  <span class="tag-lbl">Location</span>
+                  <span class="tag-val">North Jakarta, Indonesia</span>
+                </div>
+              </div>
+              <div class="info-tag-item">
+                <i data-lucide="mail" class="tag-icon"></i>
+                <div>
+                  <span class="tag-lbl">Official Email</span>
+                  <span class="tag-val">pratamahazzel@gmail.com</span>
+                </div>
+              </div>
+              <div class="info-tag-item">
+                <i data-lucide="phone" class="tag-icon"></i>
+                <div>
+                  <span class="tag-lbl">WhatsApp / Phone</span>
+                  <span class="tag-val">+62 852-8278-7130</span>
+                </div>
+              </div>
+              <div class="info-tag-item">
+                <i data-lucide="school" class="tag-icon"></i>
+                <div>
+                  <span class="tag-lbl">Institution</span>
+                  <span class="tag-val">SMKN 12 Jakarta (RPL)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Highlight Core Pillars Cards with Tilt -->
+          <div class="pillars-container">
+            <div class="pillar-card glass-panel tilt-card reveal-on-scroll" style="--delay: 0.1s">
+              <div class="card-spotlight"></div>
+              <div class="pillar-icon bg-gradient-purple"><i data-lucide="layout"></i></div>
+              <div class="pillar-body">
+                <h4>Responsive Web & UI/UX</h4>
+                <p>Crafting adaptive website layouts for Android smartphones and wide monitors using semantic HTML, CSS, and Figma prototypes.</p>
+              </div>
+            </div>
+
+            <div class="pillar-card glass-panel tilt-card reveal-on-scroll" style="--delay: 0.2s">
+              <div class="card-spotlight"></div>
+              <div class="pillar-icon bg-gradient-cyan"><i data-lucide="database"></i></div>
+              <div class="pillar-body">
+                <h4>PHP Backend & MySQL Databases</h4>
+                <p>Developing dynamic backend functionality, interactive form processing, authentication logic, and relational database management.</p>
+              </div>
+            </div>
+
+            <div class="pillar-card glass-panel tilt-card reveal-on-scroll" style="--delay: 0.3s">
+              <div class="card-spotlight"></div>
+              <div class="pillar-icon bg-gradient-pink"><i data-lucide="users"></i></div>
+              <div class="pillar-body">
+                <h4>Collaboration & Problem Solving</h4>
+                <p>Applying structured analytical problem-solving, cross-functional teamwork, and dependable project execution for digital solutions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE INTERACTIVE TERMINAL SECTION -->
+    <section class="terminal-section section-padding" id="terminal">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag"><i data-lucide="terminal"></i> Interactive Shell</span>
+          <h2 class="section-title">Hazzel's <span class="gradient-text">Live Developer Terminal</span></h2>
+          <p class="section-subtitle">Inspect Hazzel's code configuration and click "Run Shell" to simulate compilation of his technical skill matrix.</p>
+        </div>
+
+        <div class="terminal-wrapper glass-panel reveal-on-scroll">
+          <div class="terminal-topbar">
+            <div class="terminal-dots">
+              <span class="t-dot red"></span>
+              <span class="t-dot yellow"></span>
+              <span class="t-dot green"></span>
+            </div>
+            <div class="terminal-tabs">
+              <button class="t-tab active" data-tab="php"><i data-lucide="file-code"></i> HazzelProfile.php</button>
+              <button class="t-tab" data-tab="json"><i data-lucide="braces"></i> skills.json</button>
+              <button class="t-tab" data-tab="sh"><i data-lucide="terminal"></i> bash</button>
+            </div>
+            <div class="terminal-actions">
+              <button class="btn-run-shell" id="btn-run-code" onclick="runTerminalSimulation()">
+                <i data-lucide="play"></i> <span>Run Shell</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="terminal-body" id="terminal-content">
+            <!-- PHP Code Tab View -->
+            <pre class="code-view active" id="view-php"><code><span class="c-keyword">&lt;?php</span>
+<span class="c-comment">/**
+ * Zelportfolio - Hazzel Pratama Developer Class
+ * SMKN 12 Jakarta | Software Engineering (RPL)
+ * Soundtrack: Vicetone - Nevada (Instrumental)
+ */</span>
+<span class="c-keyword">class</span> <span class="c-class">SoftwareEngineer</span> {
+    <span class="c-keyword">public string</span> <span class="c-var">$name</span> = <span class="c-str">"Hazzel Pratama"</span>;
+    <span class="c-keyword">public string</span> <span class="c-var">$school</span> = <span class="c-str">"SMKN 12 Jakarta"</span>;
+    <span class="c-keyword">public string</span> <span class="c-var">$soundtrack</span> = <span class="c-str">"Vicetone - Nevada (Instrumental)"</span>;
+    <span class="c-keyword">public array</span> <span class="c-var">$stack</span> = [
+        <span class="c-str">"HTML5 / Modern CSS3"</span>,
+        <span class="c-str">"PHP Programming"</span>,
+        <span class="c-str">"MySQL Database"</span>,
+        <span class="c-str">"Figma UI/UX Design"</span>
+    ];
+
+    <span class="c-keyword">public function</span> <span class="c-func">isReadyForWork</span>(): <span class="c-keyword">bool</span> {
+        <span class="c-keyword">return true</span>; <span class="c-comment">// 100% motivated for internships & projects</span>
+    }
+}
+
+<span class="c-var">$hazzel</span> = <span class="c-keyword">new</span> <span class="c-class">SoftwareEngineer</span>();
+<span class="c-func">echo</span> <span class="c-str">"Hazzel Status: "</span> . (<span class="c-var">$hazzel</span>-><span class="c-func">isReadyForWork</span>() ? <span class="c-str">"ACTIVE & READY 🚀"</span> : <span class="c-str">"OFFLINE"</span>);
+<span class="c-keyword">?&gt;</span></code></pre>
+
+            <!-- JSON Tab View -->
+            <pre class="code-view" id="view-json"><code>{
+  <span class="c-key">"name"</span>: <span class="c-str">"Hazzel Pratama"</span>,
+  <span class="c-key">"portfolio"</span>: <span class="c-str">"Zelportfolio"</span>,
+  <span class="c-key">"soundtrack"</span>: <span class="c-str">"Vicetone - Nevada (Instrumental)"</span>,
+  <span class="c-key">"education"</span>: {
+    <span class="c-key">"institution"</span>: <span class="c-str">"SMKN 12 JAKARTA"</span>,
+    <span class="c-key">"major"</span>: <span class="c-str">"Software Engineering (RPL)"</span>,
+    <span class="c-key">"period"</span>: <span class="c-str">"2024 - 2027"</span>
+  },
+  <span class="c-key">"skills"</span>: {
+    <span class="c-key">"frontend"</span>: [<span class="c-str">"HTML5"</span>, <span class="c-str">"CSS3"</span>, <span class="c-str">"Responsive Mobile"</span>],
+    <span class="c-key">"backend"</span>: [<span class="c-str">"PHP"</span>, <span class="c-str">"MySQL"</span>, <span class="c-str">"CRUD Systems"</span>],
+    <span class="c-key">"design"</span>: [<span class="c-str">"Figma"</span>, <span class="c-str">"Wireframes"</span>, <span class="c-str">"UI/UX Prototyping"</span>]
+  },
+  <span class="c-key">"contact"</span>: {
+    <span class="c-key">"phone"</span>: <span class="c-str">"+62 852-8278-7130"</span>,
+    <span class="c-key">"email"</span>: <span class="c-str">"pratamahazzel@gmail.com"</span>,
+    <span class="c-key">"location"</span>: <span class="c-str">"North Jakarta, Indonesia"</span>
+  }
+}</code></pre>
+
+            <!-- Bash Shell Tab View -->
+            <pre class="code-view" id="view-sh"><code><span class="c-prompt">$</span> whoami
+hazzel@zelportfolio-core
+<span class="c-prompt">$</span> play "Vicetone - Nevada (Instrumental)"
+Playing: 124 BPM EDM Anthem • Vicetone feat. Cozi Zuehlsdorff
+<span class="c-prompt">$</span> echo "Click 'Run Shell' button above to simulate project compilation!"</code></pre>
+          </div>
+
+          <!-- Shell Output Stream Panel -->
+          <div class="terminal-console-output" id="terminal-console">
+            <div class="console-line"><span class="console-prompt">></span> System initialized with Vicetone - Nevada audio engine. Ready.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION (FEATURING RESTORED OFFICIAL FIGMA VECTOR LOGO) -->
+    <section class="skills-section section-padding" id="skills">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag"><i data-lucide="zap"></i> Core Competencies</span>
+          <h2 class="section-title">Skills & <span class="gradient-text">Technical Expertise</span></h2>
+          <p class="section-subtitle">A balanced toolkit of technical proficiencies and interpersonal skills developed through rigorous software engineering training.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="skills-filter reveal-on-scroll">
+          <button class="filter-btn active" data-filter="all">All Skills</button>
+          <button class="filter-btn" data-filter="tech">Code & Tech</button>
+          <button class="filter-btn" data-filter="design">Design & UI/UX</button>
+          <button class="filter-btn" data-filter="soft">Soft Skills</button>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Skill Card 1: HTML & CSS -->
+          <div class="skill-card glass-panel tilt-card reveal-on-scroll" data-category="tech">
+            <div class="card-spotlight"></div>
+            <div class="skill-head">
+              <div class="skill-icon-wrap html-icon">
+                <i data-lucide="file-code-2"></i>
+              </div>
+              <div class="skill-meta">
+                <h4 class="skill-name">CSS & HTML</h4>
+                <span class="skill-level">Proficient Level</span>
+              </div>
+              <span class="skill-pct">90%</span>
+            </div>
+            <p class="skill-desc">Designing semantic markup, CSS Flexbox & Grid architectures, mobile-first responsive media queries, and modern styling.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="--target-width: 90%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill Card 2: PHP Programming -->
+          <div class="skill-card glass-panel tilt-card reveal-on-scroll" data-category="tech">
+            <div class="card-spotlight"></div>
+            <div class="skill-head">
+              <div class="skill-icon-wrap php-icon">
+                <i data-lucide="server"></i>
+              </div>
+              <div class="skill-meta">
+                <h4 class="skill-name">PHP Programming</h4>
+                <span class="skill-level">Competent Level</span>
+              </div>
+              <span class="skill-pct">82%</span>
+            </div>
+            <p class="skill-desc">Building dynamic backend features, form processing, server-side data validation, user sessions, and web application flow.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="--target-width: 82%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill Card 3: MySQL Database -->
+          <div class="skill-card glass-panel tilt-card reveal-on-scroll" data-category="tech">
+            <div class="card-spotlight"></div>
+            <div class="skill-head">
+              <div class="skill-icon-wrap sql-icon">
+                <i data-lucide="database"></i>
+              </div>
+              <div class="skill-meta">
+                <h4 class="skill-name">MySQL Database</h4>
+                <span class="skill-level">Competent Level</span>
+              </div>
+              <span class="skill-pct">80%</span>
+            </div>
+            <p class="skill-desc">Designing relational database schemas, executing SQL queries (CRUD operations), table normalization, and data organization.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="--target-width: 80%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill Card 4: UI/UX Design (RESTORED WITH AUTHENTIC 5-COLOR FIGMA VECTOR LOGO) -->
+          <div class="skill-card glass-panel tilt-card reveal-on-scroll" data-category="design">
+            <div class="card-spotlight"></div>
+            <div class="skill-head">
+              <div class="skill-icon-wrap figma-official-wrap">
+                <!-- Authentic Official Figma Logo SVG Vector -->
+                <svg class="figma-vector-icon" viewBox="0 0 38 57" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5Z" fill="#1ABCFE"/>
+                  <path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/>
+                  <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262"/>
+                  <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E"/>
+                  <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF"/>
+                </svg>
+              </div>
+              <div class="skill-meta">
+                <h4 class="skill-name">UI/UX Design</h4>
+                <span class="skill-level">Proficient Level</span>
+              </div>
+              <span class="skill-pct">88%</span>
+            </div>
+            <p class="skill-desc">Creating wireframes, interactive prototypes, mobile Android user interfaces, and web dashboard layouts with Figma.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="--target-width: 88%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill Card 5: Problem Solving -->
+          <div class="skill-card glass-panel tilt-card reveal-on-scroll" data-category="soft">
+            <div class="card-spotlight"></div>
+            <div class="skill-head">
+              <div class="skill-icon-wrap logic-icon">
+                <i data-lucide="brain"></i>
+              </div>
+              <div class="skill-meta">
+                <h4 class="skill-name">Problem Solving</h4>
+                <span class="skill-level">Advanced Level</span>
+              </div>
+              <span class="skill-pct">85%</span>
+            </div>
+            <p class="skill-desc">Structured algorithmic analysis, systematic debugging, and finding creative, efficient solutions for programming challenges.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="--target-width: 85%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill Card 6: Teamwork & Communication -->
+          <div class="skill-card glass-panel tilt-card reveal-on-scroll" data-category="soft">
+            <div class="card-spotlight"></div>
+            <div class="skill-head">
+              <div class="skill-icon-wrap team-icon">
+                <i data-lucide="messages-square"></i>
+              </div>
+              <div class="skill-meta">
+                <h4 class="skill-name">Teamwork & Communication</h4>
+                <span class="skill-level">Advanced Level</span>
+              </div>
+              <span class="skill-pct">88%</span>
+            </div>
+            <p class="skill-desc">Proactive communication in team development, project collaboration, task management, and clear technical ideas sharing.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style="--target-width: 88%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION & EXPERIENCE TIMELINE -->
+    <section class="timeline-section section-padding" id="experience">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag"><i data-lucide="git-branch"></i> Track Record</span>
+          <h2 class="section-title">Education & <span class="gradient-text">Project Experience</span></h2>
+          <p class="section-subtitle">Academic foundations and hands-on applied projects shaping practical software engineering expertise.</p>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-center-line"></div>
+
+          <!-- Timeline Item 1: Education SMKN 12 -->
+          <div class="timeline-item left reveal-on-scroll">
+            <div class="timeline-node">
+              <i data-lucide="graduation-cap"></i>
+            </div>
+            <div class="timeline-card glass-panel tilt-card">
+              <div class="card-spotlight"></div>
+              <div class="card-glow"></div>
+              <div class="item-header">
+                <span class="badge-year">2024 - 2027 (Present)</span>
+                <span class="school-tag">Vocational High School</span>
+              </div>
+              <h3 class="item-title">SMKN 12 JAKARTA</h3>
+              <h4 class="item-subtitle text-accent">Vocational High School – Software Engineering (RPL)</h4>
+              <p class="item-description">
+                Currently studying software development, programming fundamentals, database management, and website development:
+              </p>
+              <ul class="item-bullet-list">
+                <li><i data-lucide="check"></i> Core programming fundamentals, algorithms, and Object-Oriented Programming (OOP).</li>
+                <li><i data-lucide="check"></i> Web development fundamentals using HTML, CSS, PHP, and JavaScript.</li>
+                <li><i data-lucide="check"></i> Relational database management using MySQL and database administration tools.</li>
+                <li><i data-lucide="check"></i> Developing problem-solving, creativity, and collaborative teamwork skills on school projects.</li>
+              </ul>
+              <div class="item-skills-chips">
+                <span>Software Engineering</span>
+                <span>Web Dev</span>
+                <span>Database</span>
+                <span>Algorithms</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2: Experience Web Dev & UI/UX -->
+          <div class="timeline-item right reveal-on-scroll">
+            <div class="timeline-node">
+              <i data-lucide="laptop"></i>
+            </div>
+            <div class="timeline-card glass-panel tilt-card">
+              <div class="card-spotlight"></div>
+              <div class="card-glow"></div>
+              <div class="item-header">
+                <span class="badge-year">2024 - Present</span>
+                <span class="school-tag success-tag">Applied Projects</span>
+              </div>
+              <h3 class="item-title">Web Development & UI/UX Design Project</h3>
+              <h4 class="item-subtitle text-accent">School & Independent Development Projects</h4>
+              <p class="item-description">
+                Gaining practical experience through projects across frontend, backend, and interface design:
+              </p>
+              <ul class="item-bullet-list">
+                <li><i data-lucide="check"></i> Designed and developed responsive websites using HTML and CSS.</li>
+                <li><i data-lucide="check"></i> Created modern website layouts and user interfaces using Figma.</li>
+                <li><i data-lucide="check"></i> Developed website functionality using basic PHP programming.</li>
+                <li><i data-lucide="check"></i> Managed and organized databases using MySQL.</li>
+                <li><i data-lucide="check"></i> Created wireframes, prototypes, and dashboard designs.</li>
+                <li><i data-lucide="check"></i> Applied creativity, problem-solving, and teamwork in developing digital projects.</li>
+              </ul>
+              <div class="item-skills-chips">
+                <span>HTML & CSS</span>
+                <span>Figma UI/UX</span>
+                <span>PHP</span>
+                <span>MySQL</span>
+                <span>Responsive Design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SHOWCASE WITH CATEGORY FILTERS -->
+    <section class="projects-section section-padding" id="projects">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag"><i data-lucide="layers"></i> Portfolio Showcase</span>
+          <h2 class="section-title">Featured <span class="gradient-text">Projects & Work</span></h2>
+          <p class="section-subtitle">Real-world implementations in responsive frontend design, dynamic backend databases, and interactive Figma prototypes.</p>
+        </div>
+
+        <!-- Project Filter Buttons -->
+        <div class="projects-filter reveal-on-scroll">
+          <button class="p-filter-btn active" data-pfilter="all">All Showcase</button>
+          <button class="p-filter-btn" data-pfilter="web">Web Development</button>
+          <button class="p-filter-btn" data-pfilter="php">PHP & MySQL</button>
+          <button class="p-filter-btn" data-pfilter="figma">Figma UI/UX</button>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1: Responsive E-Commerce / School Portal -->
+          <div class="project-card glass-panel tilt-card reveal-on-scroll" data-pcategory="web">
+            <div class="card-spotlight"></div>
+            <div class="project-preview-wrap">
+              <div class="project-banner bg-mockup-1">
+                <div class="mockup-screen">
+                  <div class="mockup-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="mockup-url">https://smkn12-portal.web.id</span>
+                  </div>
+                  <div class="mockup-content">
+                    <div class="mockup-hero-block">
+                      <div class="mockup-badge">RPL PROJECT</div>
+                      <div class="mockup-title-bar"></div>
+                      <div class="mockup-grid-cells">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <button class="btn btn-primary btn-sm btn-preview" onclick="openProjectModal('portal')">
+                  <i data-lucide="eye"></i> View Details
+                </button>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="badge-tag">HTML5</span>
+                <span class="badge-tag">CSS3</span>
+                <span class="badge-tag">Mobile Responsive</span>
+              </div>
+              <h3 class="project-title">Responsive Web Portal & Catalog System</h3>
+              <p class="project-desc">Modern responsive website with fluid layouts adapting effortlessly to Android smartphones and wide desktop displays with clean navigation.</p>
+              <div class="project-footer">
+                <button class="text-link" onclick="openProjectModal('portal')">
+                  Explore Case Study <i data-lucide="arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: PHP & MySQL Web Application -->
+          <div class="project-card glass-panel tilt-card reveal-on-scroll" data-pcategory="php" style="--delay: 0.15s">
+            <div class="card-spotlight"></div>
+            <div class="project-preview-wrap">
+              <div class="project-banner bg-mockup-2">
+                <div class="mockup-screen">
+                  <div class="mockup-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="mockup-url">localhost/php-mysql-crud</span>
+                  </div>
+                  <div class="mockup-content db-view">
+                    <div class="db-table-sim">
+                      <div class="db-row db-head">
+                        <span>ID</span><span>STUDENT NAME</span><span>STATUS</span>
+                      </div>
+                      <div class="db-row"><span>#01</span><span>Hazzel Pratama</span><span class="tag-ok">Active</span></div>
+                      <div class="db-row"><span>#02</span><span>RPL 12 Student</span><span class="tag-ok">Active</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <button class="btn btn-primary btn-sm btn-preview" onclick="openProjectModal('crud')">
+                  <i data-lucide="eye"></i> View Details
+                </button>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="badge-tag">PHP</span>
+                <span class="badge-tag">MySQL</span>
+                <span class="badge-tag">CRUD</span>
+              </div>
+              <h3 class="project-title">Dynamic Database & Management System</h3>
+              <p class="project-desc">Dynamic web application driven by PHP backend and MySQL relational database. Supports full Create, Read, Update, and Delete operations securely.</p>
+              <div class="project-footer">
+                <button class="text-link" onclick="openProjectModal('crud')">
+                  Explore Case Study <i data-lucide="arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Figma UI/UX Dashboard & Mobile App -->
+          <div class="project-card glass-panel tilt-card reveal-on-scroll" data-pcategory="figma" style="--delay: 0.3s">
+            <div class="card-spotlight"></div>
+            <div class="project-preview-wrap">
+              <div class="project-banner bg-mockup-3">
+                <div class="mockup-screen figma-view">
+                  <div class="mockup-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="mockup-url">figma.com/@hazzel-design</span>
+                  </div>
+                  <div class="mockup-content figma-canvas">
+                    <div class="phone-frame">
+                      <div class="notch"></div>
+                      <div class="phone-ui">
+                        <div class="phone-avatar"></div>
+                        <div class="phone-line"></div>
+                        <div class="phone-cards">
+                          <div></div><div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <button class="btn btn-primary btn-sm btn-preview" onclick="openProjectModal('figma')">
+                  <i data-lucide="eye"></i> View Details
+                </button>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="badge-tag">Figma</span>
+                <span class="badge-tag">UI/UX</span>
+                <span class="badge-tag">Mobile Prototype</span>
+              </div>
+              <h3 class="project-title">Modern Mobile App UI & Dashboard Layout</h3>
+              <p class="project-desc">High-fidelity user interface design featuring cohesive color systems, typography scale, wireframing, and interactive mobile application prototypes.</p>
+              <div class="project-footer">
+                <button class="text-link" onclick="openProjectModal('figma')">
+                  Explore Case Study <i data-lucide="arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION & CONTACT SECTION -->
+    <section class="contact-section section-padding" id="contact">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag"><i data-lucide="send"></i> Let's Connect</span>
+          <h2 class="section-title">Get in Touch with <span class="gradient-text">Hazzel Pratama</span></h2>
+          <p class="section-subtitle">Interested in offering an internship, collaborating on a web project, or discussing technology? Feel free to reach out!</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Contact Direct Channels -->
+          <div class="contact-info-column reveal-on-scroll">
+            <div class="contact-card-box glass-panel tilt-card">
+              <div class="card-spotlight"></div>
+              <div class="card-glow"></div>
+              <h3>Direct Contact Channels</h3>
+              <p class="contact-lead-text">Click any of the options below to connect directly via WhatsApp or official Email:</p>
+
+              <!-- WhatsApp Card Button -->
+              <a href="https://wa.me/6285282787130?text=Hello%20Hazzel%20Pratama,%20I%20viewed%20Zelportfolio%20and%20would%20like%20to%20discuss%20an%20opportunity" target="_blank" rel="noopener noreferrer" class="contact-method-card wa-theme">
+                <div class="method-icon"><i data-lucide="message-square"></i></div>
+                <div class="method-details">
+                  <span class="method-label">WhatsApp (Fast Response)</span>
+                  <span class="method-value">+62 852-8278-7130</span>
+                </div>
+                <i data-lucide="arrow-up-right" class="method-arrow"></i>
+              </a>
+
+              <!-- Email Card Button -->
+              <a href="mailto:pratamahazzel@gmail.com?subject=Project%20Inquiry%20/%20Connecting%20with%20Hazzel%20Pratama" class="contact-method-card mail-theme">
+                <div class="method-icon"><i data-lucide="mail"></i></div>
+                <div class="method-details">
+                  <span class="method-label">Official Email</span>
+                  <span class="method-value">pratamahazzel@gmail.com</span>
+                </div>
+                <i data-lucide="arrow-up-right" class="method-arrow"></i>
+              </a>
+
+              <!-- Location Card -->
+              <div class="contact-method-card loc-theme">
+                <div class="method-icon"><i data-lucide="map-pin"></i></div>
+                <div class="method-details">
+                  <span class="method-label">Location</span>
+                  <span class="method-value">Indonesia, North Jakarta</span>
+                </div>
+              </div>
+
+              <!-- Student Profile Card Mini -->
+              <div class="school-affiliation-box">
+                <i data-lucide="award" class="text-accent"></i>
+                <div>
+                  <strong>Software Engineering • SMKN 12 Jakarta</strong>
+                  <span>Ready to contribute to the IT industry & modern software engineering teams.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Message Form -->
+          <div class="contact-form-column reveal-on-scroll">
+            <div class="form-container glass-panel tilt-card">
+              <div class="card-spotlight"></div>
+              <div class="card-glow"></div>
+              <h3>Send an Instant Message</h3>
+              <p class="form-subtext">Fill in the fields below to instantly compose and send a message directly to Hazzel on WhatsApp:</p>
+
+              <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                  <label for="sender-name"><i data-lucide="user"></i> Your Name / Organization</label>
+                  <input type="text" id="sender-name" name="name" placeholder="e.g. John Doe / Tech Studio Co." required>
+                </div>
+
+                <div class="form-group">
+                  <label for="sender-topic"><i data-lucide="help-circle"></i> Subject / Purpose</label>
+                  <select id="sender-topic" name="topic">
+                    <option value="Internship / Job Opportunity">Internship / Job Opportunity</option>
+                    <option value="Website Development / UI UX Design">Website Development / UI UX Design</option>
+                    <option value="IT Project Collaboration">IT Project Collaboration</option>
+                    <option value="General Inquiries & Networking">General Inquiries & Networking</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="sender-message"><i data-lucide="message-circle"></i> Your Message</label>
+                  <textarea id="sender-message" name="message" rows="4" placeholder="Describe your project, offer, or message details here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-glow">
+                  <i data-lucide="send"></i>
+                  <span>Send Message via WhatsApp</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FLOATING INTERACTIVE MUSIC PLAYER WIDGET (VICETONE - NEVADA) -->
+  <div class="music-player-widget" id="music-player-widget">
+    <div class="music-mini-bar" onclick="toggleMusicPlayerExpanded()">
+      <div class="vinyl-disc" id="vinyl-disc">
+        <div class="vinyl-grooves"></div>
+        <div class="vinyl-center"></div>
+      </div>
+      <div class="music-info-mini">
+        <span class="music-title-mini" id="music-title-mini">Vicetone - Nevada (Instrumental)</span>
+        <span class="music-status-mini" id="music-status-mini">Click to Play Nevada 🎵</span>
+      </div>
+      <!-- Dancing Equalizer Bars -->
+      <div class="equalizer-bars" id="equalizer-bars">
+        <span class="eq-bar bar-1"></span>
+        <span class="eq-bar bar-2"></span>
+        <span class="eq-bar bar-3"></span>
+        <span class="eq-bar bar-4"></span>
+        <span class="eq-bar bar-5"></span>
+      </div>
+      <button class="music-circle-toggle" id="music-circle-btn" onclick="event.stopPropagation(); togglePlayMusic();" aria-label="Play/Pause Nevada">
+        <i data-lucide="play" id="music-circle-icon"></i>
+      </button>
+    </div>
+
+    <!-- Expanded Music Console Drawer -->
+    <div class="music-expanded-panel" id="music-expanded-panel">
+      <div class="panel-header">
+        <span class="panel-title"><i data-lucide="music-2"></i> Vicetone - Nevada Audio Engine</span>
+        <button class="panel-close" onclick="toggleMusicPlayerExpanded()"><i data-lucide="chevron-down"></i></button>
+      </div>
+
+      <div class="track-selector">
+        <span class="panel-sublabel">Select Audio Track:</span>
+        <div class="track-buttons">
+          <button class="track-btn active" data-track="nevada" onclick="switchTrack('nevada')">🔥 Nevada (Vicetone)</button>
+          <button class="track-btn" data-track="lofi" onclick="switchTrack('lofi')">🎧 Cyber Lo-Fi</button>
+          <button class="track-btn" data-track="synthwave" onclick="switchTrack('synthwave')">🌌 Synthwave</button>
+          <button class="track-btn" data-track="ambient" onclick="switchTrack('ambient')">🌧️ Deep Focus</button>
+        </div>
+      </div>
+
+      <div class="volume-control-wrap">
+        <i data-lucide="volume-1" class="vol-icon"></i>
+        <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.75" oninput="setMusicVolume(this.value)">
+        <i data-lucide="volume-2" class="vol-icon"></i>
+      </div>
+
+      <div class="custom-audio-upload">
+        <label for="custom-audio-file" class="upload-btn">
+          <i data-lucide="upload-cloud"></i> <span>Replace with your nevada.mp3 / Custom Song</span>
+        </label>
+        <input type="file" id="custom-audio-file" accept="audio/*" onchange="loadCustomAudio(event)" style="display: none;">
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER: Zelportfolio Brand -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <a href="#home" class="nav-brand">
+          <span class="brand-code">&lt;</span>
+          <span class="brand-name">Zel</span>
+          <span class="brand-accent">portfolio</span>
+          <span class="brand-code">/&gt;</span>
+        </a>
+        <p class="footer-tagline">Software Engineering Portfolio of Hazzel Pratama • SMKN 12 Jakarta</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#terminal">Terminal</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 <strong>Hazzel Pratama</strong> • Zelportfolio. All Rights Reserved.</p>
+        <p class="built-with">Crafted with semantic HTML5, modern CSS3, Web Audio API & vanilla JavaScript.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM FLOATING NAVIGATION BAR (App-like feel for Android/Smartphones) -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Bottom Navigation">
+    <a href="#home" class="m-bar-item active">
+      <i data-lucide="home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#about" class="m-bar-item">
+      <i data-lucide="user"></i>
+      <span>About</span>
+    </a>
+    <a href="#skills" class="m-bar-item">
+      <i data-lucide="zap"></i>
+      <span>Skills</span>
+    </a>
+    <a href="#projects" class="m-bar-item">
+      <i data-lucide="layers"></i>
+      <span>Projects</span>
+    </a>
+    <button class="m-bar-item m-bar-music" onclick="togglePlayMusic()" aria-label="Toggle Nevada Music">
+      <i data-lucide="music" id="m-bottom-music-icon"></i>
+      <span>Nevada</span>
+    </button>
+  </nav>
+
+  <!-- BACK TO TOP FLOATING BUTTON WITH CIRCULAR SCROLL PROGRESS -->
+  <button class="back-to-top-btn" id="back-to-top" onclick="scrollToTop()" aria-label="Scroll to Top">
+    <svg class="progress-ring" width="46" height="46">
+      <circle class="progress-ring-circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="3" fill="transparent" r="19" cx="23" cy="23"/>
+      <circle class="progress-ring-circle" id="scroll-progress-circle" stroke="var(--accent-purple)" stroke-width="3" fill="transparent" r="19" cx="23" cy="23"/>
+    </svg>
+    <i data-lucide="arrow-up" class="top-icon"></i>
+  </button>
+
+  <!-- INTERACTIVE PROJECT DETAILS MODAL -->
+  <div class="modal-backdrop" id="project-modal" onclick="closeProjectModal(event)">
+    <div class="modal-container glass-panel" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeProjectModal()" aria-label="Close Dialog">
+        <i data-lucide="x"></i>
+      </button>
+      <div id="modal-content-inner">
+        <!-- Injected dynamically via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
